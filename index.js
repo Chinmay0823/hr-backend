@@ -15,6 +15,7 @@ app.use('/api/auth', require('./routes/Authroute'));
 app.use('/api/reports', require('./routes/Reportroutes'));
 app.use('/api/recruitment', require('./routes/RecrutmentRoute'));
 
+
 app.get('/', (req, res) => {
   res.send('HR Reporting & Placement Management API Running');
 });
