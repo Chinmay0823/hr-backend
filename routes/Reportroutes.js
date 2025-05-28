@@ -8,11 +8,6 @@ const {
   deleteReport
 } = require('../controller/Reportcontroller');
 
-const { authenticate, authorize } = require('../middleawre/AuthMIddleware');
 
-router.get('/', authenticate, getReports);
-router.post('/', authenticate, authorize('hr'), createReport);
-router.put('/:id', authenticate, authorize('admin'), updateReport);
-router.delete('/:id', authenticate, authorize('admin'), deleteReport);
 
 module.exports = router;

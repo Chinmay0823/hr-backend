@@ -6,7 +6,6 @@ exports.createReport = async (req, res) => {
     const report = new Report({
       reportTitle,
       reportContent,
-      createdBy: req.user.id
     });
     await report.save();
     res.status(201).json(report);
@@ -17,7 +16,7 @@ exports.createReport = async (req, res) => {
 
 exports.getReports = async (req, res) => {
   try {
-    const reports = await Report.find().populate('createdBy', 'name email role');
+    const reports = await Report.find()
     res.status(200).json(reports);
   } catch (error) {
     res.status(500).json({ message: 'Server error while fetching reports' });

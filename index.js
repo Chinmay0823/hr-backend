@@ -9,12 +9,11 @@ connectDB();
 const app = express();
 app.use(cors({
   origin: 'https://hr-frotend-nine.vercel.app',
-  credentials: true // if using cookies/auth headers
+  credentials: true 
 }));
 app.use(express.json());
 
 // Routes
-app.use('/api/auth', require('./routes/Authroute'));
 app.use('/api/reports', require('./routes/Reportroutes'));
 app.use('/api/recruitment', require('./routes/RecrutmentRoute'));
 

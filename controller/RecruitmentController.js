@@ -3,7 +3,6 @@ const Interview = require('../models/interviewmodel');
 const Offer = require('../models/offer');
 const Candidate = require('../models/Candidate');
 
-
 // --------------- CANDIDATES -----------------
 
 exports.createCandidate = async (req, res) => {
@@ -21,7 +20,6 @@ exports.createCandidate = async (req, res) => {
       gender,
       experience,
       role,
-      createdBy: req.user.id, 
     });
 
     await candidate.save();
@@ -39,7 +37,6 @@ exports.getAllCandidates = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 
 exports.getCandidateById = async (req, res) => {
   try {
@@ -71,8 +68,6 @@ exports.deleteCandidate = async (req, res) => {
   }
 };
 
-
-
 // --------------- JOB POSTS -----------------
 
 exports.createJobPost = async (req, res) => {
@@ -86,7 +81,6 @@ exports.createJobPost = async (req, res) => {
       requirements,
       location,
       status,
-      postedBy: req.user.id,
     });
 
     await jobPost.save();
@@ -98,7 +92,7 @@ exports.createJobPost = async (req, res) => {
 
 exports.getAllJobPosts = async (req, res) => {
   try {
-    const jobPosts = await JobPost.find().populate('postedBy', 'name email');
+    const jobPosts = await JobPost.find();
     res.json(jobPosts);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
@@ -107,7 +101,7 @@ exports.getAllJobPosts = async (req, res) => {
 
 exports.getJobPostById = async (req, res) => {
   try {
-    const jobPost = await JobPost.findById(req.params.id).populate('postedBy', 'name email');
+    const jobPost = await JobPost.findById(req.params.id);
     if (!jobPost) return res.status(404).json({ message: 'Job post not found' });
     res.json(jobPost);
   } catch (error) {
@@ -158,9 +152,7 @@ exports.scheduleInterview = async (req, res) => {
 
 exports.getAllInterviews = async (req, res) => {
   try {
-    const interviews = await Interview.find()
-      .populate('jobPost', 'title company')
-      .sort({ scheduledDate: 1 });
+    const interviews = await Interview.find().sort({ scheduledDate: 1 });
     res.json(interviews);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
@@ -169,7 +161,7 @@ exports.getAllInterviews = async (req, res) => {
 
 exports.getInterviewById = async (req, res) => {
   try {
-    const interview = await Interview.findById(req.params.id).populate('jobPost', 'title company');
+    const interview = await Interview.findById(req.params.id);
     if (!interview) return res.status(404).json({ message: 'Interview not found' });
     res.json(interview);
   } catch (error) {
@@ -220,7 +212,7 @@ exports.createOffer = async (req, res) => {
 
 exports.getAllOffers = async (req, res) => {
   try {
-    const offers = await Offer.find().populate('jobPost', 'title company');
+    const offers = await Offer.find();
     res.json(offers);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
@@ -229,7 +221,7 @@ exports.getAllOffers = async (req, res) => {
 
 exports.getOfferById = async (req, res) => {
   try {
-    const offer = await Offer.findById(req.params.id).populate('jobPost', 'title company');
+    const offer = await Offer.findById(req.params.id);
     if (!offer) return res.status(404).json({ message: 'Offer not found' });
     res.json(offer);
   } catch (error) {
