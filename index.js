@@ -9,8 +9,9 @@ connectDB();
 const app = express();
 app.use(cors({
   origin: 'https://hr-frotend-nine.vercel.app',
-  credentials: true 
+  credentials: true,
 }));
+
 app.use(express.json());
 
 // Routes
